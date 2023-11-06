@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
+import java.util.Random;
 
 public class TicTacToeGUI {
     JFrame ticTacToeFrame=new JFrame("TicTacToe");
@@ -17,10 +19,65 @@ public class TicTacToeGUI {
     JButton box7=new JButton("");
     JButton box8=new JButton("");
     JButton box9=new JButton("");
-    String userShape="X";
 
 
-    public void ticTacToe() {
+
+
+        JFrame chooseShapeFrame=new JFrame("TicTacToe | Shape Pick");
+        JLabel chooseText=new JLabel("Choose a Shape To use:");
+        JButton xButton=new JButton("X");
+        JButton yButton=new JButton("0");
+
+        String userShape;
+
+
+
+
+    public void chooseShape(){
+        chooseShapeFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        chooseShapeFrame.setLayout( new GridBagLayout());
+        chooseShapeFrame.setSize(400, 198);
+        chooseShapeFrame.setLocationRelativeTo(null);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 10));
+        buttonPanel.add(xButton);
+        buttonPanel.add(yButton);
+
+        xButton.setPreferredSize(new Dimension(100, 50));
+        yButton.setPreferredSize(new Dimension(100, 50));
+
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.CENTER;
+        gridBagConstraints.insets = new Insets(5, 0, 10, 0);
+        chooseShapeFrame.add(chooseText, gridBagConstraints);
+
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new Insets(15, 0, 15, 0);
+        chooseShapeFrame.add(buttonPanel, gridBagConstraints);
+
+
+
+        chooseShapeFrame.setVisible(true);
+
+        xButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                userShape="X";
+                ticTacToe(userShape);
+            }
+        });
+        yButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                userShape="O";
+                ticTacToe(userShape);
+            }
+        });
+    }
+    public void ticTacToe(String userShape) {
         ticTacToeFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ticTacToeFrame.setLayout( new GridBagLayout());
         ticTacToeFrame.setSize(650, 500);
@@ -103,16 +160,7 @@ public class TicTacToeGUI {
         gridBagConstraints9.anchor = GridBagConstraints.CENTER;
         gridBagConstraints9.insets =new Insets(15, 15, 15, 15);
 
-        GridBagConstraints gridBagConstraints10 = new GridBagConstraints();
-        gridBagConstraints10.gridx = 2;
-        gridBagConstraints10.gridy = 2;
-        gridBagConstraints10.gridwidth = 3;
-        gridBagConstraints10.ipadx = 118;
-        gridBagConstraints10.ipady = 87;
-        gridBagConstraints10.anchor = GridBagConstraints.CENTER;
-        gridBagConstraints10.insets =new Insets(15, 15, 15, 15);
 
-//        ticTacToeFrame.add(clickText,gridBagConstraints);
         ticTacToeFrame.add(box1,gridBagConstraints);
         ticTacToeFrame.add(box2,gridBagConstraints2);
         ticTacToeFrame.add(box3,gridBagConstraints3);
@@ -129,73 +177,109 @@ public class TicTacToeGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                addText(box1,userShape);
+                addText(box1, userShape);
+                computerPick();
             }
         });
         box2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                addText(box2,userShape);
+                addText(box2, userShape);
+                computerPick();
             }
         });
         box3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                addText(box3,userShape);
+                addText(box3, userShape);
+                computerPick();
             }
         });
         box4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                addText(box4,userShape);
+                addText(box4, userShape);
+                computerPick();
             }
         }); box5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 addText(box5,userShape);
+                computerPick();
             }
         }); box6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 addText(box6,userShape);
+                computerPick();
             }
         });
         box7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                addText(box7,userShape);
+                addText(box7, userShape);
+                computerPick();
             }
         });
         box8.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                addText(box8,userShape);
+                addText(box8, userShape);
+                computerPick();
             }
         });
         box9.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                addText(box9,userShape);
+                addText(box9, userShape);
+                computerPick();
             }
         });
-
-
-
-
-
 
     }
 
     public void addText(JButton box, String userShape) {
-        box.setText(this.userShape);
+        if (box != null && box.getText().isEmpty()) {
+            box.setText(userShape);
+        }
+       else{
+            JOptionPane.showMessageDialog(null, "This Box has already being chosen.\nPick an empty box");
+        }
     }
+    public void computerPick() {
+        Random randomNumber = new Random();
+        JButton computerBox = null;
+
+        do {
+            int computerPick = randomNumber.nextInt(9) + 1;
+
+            switch (computerPick) {
+                case 1 -> computerBox = box1;
+                case 2 -> computerBox = box2;
+                case 3 -> computerBox = box3;
+                case 4 -> computerBox = box4;
+                case 5 -> computerBox = box5;
+                case 6 -> computerBox = box6;
+                case 7 -> computerBox = box7;
+                case 8 -> computerBox = box8;
+                case 9 -> computerBox = box9;
+            }
+        } while (computerBox != null && !computerBox.getText().isEmpty());
+
+        if (computerBox != null) {
+            String computerShape = userShape.equals("X") ? "O" : "X";
+            computerBox.setText(computerShape);
+        }
+    }
+
+
 
 }
