@@ -4,42 +4,51 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
 public class TicTacToeGUI {
-    JFrame ticTacToeFrame=new JFrame("TicTacToe");
-    JLabel clickText = new JLabel("Click on the boxes to choose a position");
-    JButton box1=new JButton("");
-    JButton box2=new JButton("");
-    JButton box3=new JButton("");
-    JButton box4=new JButton("");
-    JButton box5=new JButton("");
-    JButton box6=new JButton("");
-    JButton box7=new JButton("");
-    JButton box8=new JButton("");
-    JButton box9=new JButton("");
 
 
 
 
-        JFrame chooseShapeFrame=new JFrame("TicTacToe | Shape Pick");
-        JLabel chooseText=new JLabel("Choose a Shape To use:");
-        JButton xButton=new JButton("X");
-        JButton yButton=new JButton("0");
+
+
 
         String userShape;
+    String[] userBox = new String[5];
+    String[] cmpBox=new String[5];
+int userIndex=0;
+    int cmpIndex=0;
+
 
 
 
 
     public void chooseShape(){
+        JFrame chooseShapeFrame=new JFrame("TicTacToe | Shape Pick");
+        JLabel chooseText=new JLabel("Choose a Shape To use:");
+        JButton xButton=new JButton("X");
+        JButton yButton=new JButton("0");
+
         chooseShapeFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         chooseShapeFrame.setLayout( new GridBagLayout());
         chooseShapeFrame.setSize(400, 198);
         chooseShapeFrame.setLocationRelativeTo(null);
+        chooseShapeFrame.getContentPane().setBackground(new Color(0, 162, 255));
+
+        chooseText.setFont(new Font("Gill sans", Font.BOLD, 24));
+        chooseText.setForeground(Color.darkGray);
+
+        xButton.setFont(new Font("Gill sans", Font.PLAIN, 18));
+        xButton.setForeground(new Color(94, 94, 94));
+
+        yButton.setFont(new Font("Gill sans", Font.PLAIN, 18));
+        yButton.setForeground(new Color(94, 94, 94));
 
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(0, 162, 255));
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 10));
         buttonPanel.add(xButton);
         buttonPanel.add(yButton);
@@ -65,6 +74,7 @@ public class TicTacToeGUI {
         xButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                chooseShapeFrame.dispose();
                 userShape="X";
                 ticTacToe(userShape);
             }
@@ -72,16 +82,61 @@ public class TicTacToeGUI {
         yButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                chooseShapeFrame.dispose();
                 userShape="O";
                 ticTacToe(userShape);
             }
         });
     }
+    JButton box1=new JButton("");
+    JButton box2=new JButton("");
+    JButton box3=new JButton("");
+    JButton box4=new JButton("");
+    JButton box5=new JButton("");
+    JButton box6=new JButton("");
+    JButton box7=new JButton("");
+    JButton box8=new JButton("");
+    JButton box9=new JButton("");
+    JFrame ticTacToeFrame=new JFrame("TicTacToe");
     public void ticTacToe(String userShape) {
+
+        JLabel clickText = new JLabel("Click on the boxes to choose a position");
+
+
         ticTacToeFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ticTacToeFrame.setLayout( new GridBagLayout());
         ticTacToeFrame.setSize(650, 500);
+        ticTacToeFrame.getContentPane().setBackground(new Color(0, 162, 255));
         ticTacToeFrame.setLocationRelativeTo(null);
+
+        box1.setBackground(Color.gray);
+
+        box1.setFont(new Font("Gill sans ultra bold", Font.BOLD, 30));
+        box1.setForeground(Color.black);
+
+        box2.setFont(new Font("Gill sans ultra bold", Font.BOLD, 30));
+        box2.setForeground(Color.black);
+
+        box3.setFont(new Font("Gill sans ultra bold", Font.BOLD, 30));
+        box3.setForeground(Color.black);
+
+        box4.setFont(new Font("Gill sans ultra bold", Font.BOLD, 30));
+        box4.setForeground(Color.black);
+
+        box5.setFont(new Font("Gill sans ultra bold", Font.BOLD, 30));
+        box5.setForeground(Color.black);
+
+        box6.setFont(new Font("Gill sans ultra bold", Font.BOLD, 30));
+        box6.setForeground(Color.black);
+
+        box7.setFont(new Font("Gill sans ultra bold", Font.BOLD, 30));
+        box7.setForeground(Color.black);
+
+        box8.setFont(new Font("Gill sans ultra bold", Font.BOLD, 30));
+        box8.setForeground(Color.black);
+
+        box9.setFont(new Font("Gill sans ultra bold", Font.BOLD, 30));
+        box9.setForeground(Color.black);
 
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -176,90 +231,152 @@ public class TicTacToeGUI {
         box1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (userIndex < userBox.length) {
+                    userBox[userIndex] = String.valueOf(1);
+                    userIndex++;
 
-                addText(box1, userShape);
-                computerPick();
+                    addText(box1, userShape);
+
+                    computerPick();
+                    checkWin(userBox, "user");
+                }
             }
         });
         box2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (userIndex < userBox.length) {
+                    userBox[userIndex] = String.valueOf(2);
+                    userIndex++; // Increment userIndex here, after assigning a value to userBox
 
-                addText(box2, userShape);
-                computerPick();
+                    addText(box2, userShape);
+
+                    computerPick(); // Pass userShape to the computerPick method
+                    checkWin(userBox, "user");
+                }
             }
         });
         box3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                addText(box3, userShape);
-                computerPick();
+                if (userIndex < userBox.length) {
+                    userBox[userIndex] = String.valueOf(3);
+                    userIndex++; // Increment userIndex here, after assigning a value to userBox
+
+                    addText(box3, userShape);
+
+                    computerPick(); // Pass userShape to the computerPick method
+                    checkWin(userBox, "user");
+                }
             }
         });
         box4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (userIndex < userBox.length) {
+                    userBox[userIndex] = String.valueOf(4);
+                    userIndex++; // Increment userIndex here, after assigning a value to userBox
 
-                addText(box4, userShape);
-                computerPick();
+                    addText(box4, userShape);
+
+                    computerPick(); // Pass userShape to the computerPick method
+                    checkWin(userBox, "user");
+                }
             }
         }); box5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (userIndex < userBox.length) {
+                    userBox[userIndex] = String.valueOf(5);
+                    userIndex++; // Increment userIndex here, after assigning a value to userBox
 
-                addText(box5,userShape);
-                computerPick();
+                    addText(box5, userShape);
+
+                    computerPick(); // Pass userShape to the computerPick method
+                    checkWin(userBox, "user");
+                }
             }
         }); box6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (userIndex < userBox.length) {
+                    userBox[userIndex] = String.valueOf(6);
+                    userIndex++; // Increment userIndex here, after assigning a value to userBox
 
-                addText(box6,userShape);
-                computerPick();
+                    addText(box6, userShape);
+
+                    computerPick(); // Pass userShape to the computerPick method
+                    checkWin(userBox, "user");
+                }
             }
         });
         box7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (userIndex < userBox.length) {
+                    userBox[userIndex] = String.valueOf(7);
+                    userIndex++; // Increment userIndex here, after assigning a value to userBox
 
-                addText(box7, userShape);
-                computerPick();
+                    addText(box7, userShape);
+
+                    computerPick(); // Pass userShape to the computerPick method
+                    checkWin(userBox, "user");
+                }
             }
         });
         box8.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (userIndex < userBox.length) {
+                    userBox[userIndex] = String.valueOf(8);
+                    userIndex++; // Increment userIndex here, after assigning a value to userBox
 
-                addText(box8, userShape);
-                computerPick();
+                    addText(box8, userShape);
+
+                    computerPick(); // Pass userShape to the computerPick method
+                    checkWin(userBox,"user");
+                }
             }
         });
         box9.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (userIndex < userBox.length) {
+                    userBox[userIndex] = String.valueOf(9);
+                    userIndex++; // Increment userIndex here, after assigning a value to userBox
 
-                addText(box9, userShape);
-                computerPick();
+                    addText(box9, userShape);
+
+                    computerPick(); // Pass userShape to the computerPick method
+                    checkWin(userBox,"user");
+                }
             }
         });
 
     }
 
     public void addText(JButton box, String userShape) {
-        if (box != null && box.getText().isEmpty()) {
+        if (box != null &&( box.getText().isEmpty() || Objects.equals(box.getText(), "")) ){
             box.setText(userShape);
         }
+
        else{
+            assert box != null;
+
+            System.out.println(box.getText());
             JOptionPane.showMessageDialog(null, "This Box has already being chosen.\nPick an empty box");
         }
     }
     public void computerPick() {
         Random randomNumber = new Random();
         JButton computerBox = null;
+        int cmpPosition;
 
         do {
             int computerPick = randomNumber.nextInt(9) + 1;
+            cmpPosition=computerPick;
+
 
             switch (computerPick) {
                 case 1 -> computerBox = box1;
@@ -277,8 +394,73 @@ public class TicTacToeGUI {
         if (computerBox != null) {
             String computerShape = userShape.equals("X") ? "O" : "X";
             computerBox.setText(computerShape);
+            if (cmpIndex < cmpBox.length) {
+                cmpBox[cmpIndex] = String.valueOf(cmpPosition);
+                cmpIndex++;
+                for (String box : cmpBox) {
+                    System.out.println(box);
+                }
+            }
+            checkWin(cmpBox,"computer");
         }
     }
+
+    public void checkWin(String[] box, String user){
+        TicTacToe ticTacToe=new TicTacToe();
+        int boxesIndex=0;
+//        for(int i=0;i<box.length;i++){
+//            boxIndex++;
+//        }
+        for (String symbol : box) {
+
+            if ( symbol!=null ) {
+                boxesIndex++;
+            }
+        }
+        if(boxesIndex>=3){
+            boolean result=ticTacToe.checkWin(box);
+            if(result){
+                if(Objects.equals(user, "computer")){
+                    JOptionPane.showMessageDialog(null,"Computer won!!!");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"You won!!!");
+                }
+                resetGame();
+
+            }
+        }
+
+    }
+
+    public void resetGame() {
+        ticTacToeFrame.dispose();
+        // Clear the text of all buttons
+        box1.setText("");
+        box2.setText("");
+        box3.setText("");
+        box4.setText("");
+        box5.setText("");
+        box6.setText("");
+        box7.setText("");
+        box8.setText("");
+        box9.setText("");
+
+        // Reset user and computer box arrays
+        Arrays.fill(userBox, null);
+        Arrays.fill(cmpBox, null);
+
+        // Reset user and computer indices
+        userIndex = 0;
+        cmpIndex = 0;
+
+        // Show a message indicating the start of a new game
+        JOptionPane.showMessageDialog(null, "New game started! Choose a position to play.");
+
+        // Start a new game by allowing the user to choose their shape
+        chooseShape();
+    }
+
 
 
 
